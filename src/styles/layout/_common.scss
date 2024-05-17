@@ -9,6 +9,7 @@ body {
 }
 
 $anim-speed: 1.5s;
+$anim-text-speed: 1.3s;
 $anim-function: cubic-bezier(0.995, 0.015, 0.505, 1.000);
 
 .main-section {
@@ -48,6 +49,11 @@ $anim-function: cubic-bezier(0.995, 0.015, 0.505, 1.000);
             i {
                 transform: translate(100vw);
             }
+
+            span,
+            i {
+                transition: transform $anim-text-speed $anim-function;
+            }
         }
     }
 
@@ -83,7 +89,7 @@ $anim-function: cubic-bezier(0.995, 0.015, 0.505, 1.000);
     i {
         display: inline-block;
         font-style: normal;
-        transition: transform $anim-speed $anim-function;
+        transition: transform calc($anim-text-speed + .2s) $anim-function;
     }
 }
 
