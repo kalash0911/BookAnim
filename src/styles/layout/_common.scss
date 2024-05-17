@@ -1,0 +1,175 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: $black;
+    margin: 0;
+    overflow: hidden;
+}
+
+$anim-speed: 1.5s;
+$anim-function: cubic-bezier(0.995, 0.015, 0.505, 1.000);
+
+.main-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.book {
+    position: relative;
+    min-width: 100vw;
+    min-height: 100vh;
+    perspective: 2000px;
+
+    &.open {
+
+        .page {
+
+            &.left {
+                transform: rotateY(0deg);
+
+                &::before {
+                    animation: shadow $anim-speed linear forwards;
+                }
+            }
+
+            &.right {
+                transform: rotateY(0deg);
+            }
+        }
+
+        .title {
+
+            span {
+                transform: translate(-100vw);
+            }
+
+            i {
+                transform: translate(100vw);
+            }
+        }
+    }
+
+    &.close {
+
+        .page {
+
+            &.left {
+
+                &::before {
+                    animation: shadow2 $anim-speed linear forwards;
+                }
+            }
+        }
+    }
+}
+
+.title {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $white;
+    margin: 0;
+    z-index: 2;
+    font-size: 40px;
+    padding: 0 40px;
+    z-index: -1;
+    text-align: center;
+
+    span,
+    i {
+        display: inline-block;
+        font-style: normal;
+        transition: transform $anim-speed $anim-function;
+    }
+}
+
+.page {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    background-color: $black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform-origin: center right;
+    transition: transform $anim-speed $anim-function;
+
+    &.left {
+        transform: rotateY(90deg);
+
+        .text {
+            text-align: right;
+        }
+
+        &::before {
+            content:'';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: $black;
+            z-index: 1;
+        }
+
+    }
+
+    &.right {
+        transform: rotateY(-90deg);
+        left: 50%;
+        transform-origin: center left;
+
+        img {
+            left: 0;
+            object-position: left;
+        }
+    }
+
+    img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: right;
+    }
+}
+
+@keyframes shadow {
+    0%{
+        opacity: .3;
+    }
+    50%{
+        opacity: .3;
+    }
+    75%{
+        opacity: .2;
+    }
+    85%{
+        opacity: .1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+@keyframes shadow2 {
+    0%{
+        opacity: 0;
+    }
+    15%{
+        opacity: 0;
+    }
+    25%{
+        opacity: .1;
+    }
+    50%{
+        opacity: .2;
+    }
+    100%{
+        opacity: .3;
+    }
+}
